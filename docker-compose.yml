@@ -6,19 +6,19 @@ services:
     container_name: django_cont
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=True
     depends_on:
       - db
     networks:
       - notes-app-nw
+    env_file:
+      - ".env"
 
   db:
     image: mysql:8
     container_name: db_cont
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE=test_db
+      MYSQL_DATABASE: test_db
     ports:
       - "3306:3306"
     networks:
