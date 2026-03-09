@@ -3,24 +3,24 @@ FROM python:3.9
 # Set working directory
 WORKDIR /app/backend
 
-# Install system dependencies
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+# # Install system dependencies
+# RUN apt-get update \
+#     && apt-get upgrade -y \
+#     && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+#     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first (for caching)
-COPY requirements.txt .
+COPY requirements.txt /app/backend
 
 # Install Python dependencies
-RUN pip install mysqlclient
-RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install mysqlclient
+RUN pip install -r requirements.txt
 
 # Copy project
-COPY . .
+COPY . /app/backend
 
 # Expose port
 EXPOSE 8000
 
 # Default command (adjust if using gunicorn)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD python /app/backend/manage.py runserver 0.0.0.0:8000
