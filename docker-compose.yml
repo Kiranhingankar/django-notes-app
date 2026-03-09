@@ -1,28 +1,8 @@
 version: "3.8"
 
-services:
-  django_app:
-    build: .
-    container_name: django_cont
+services :
+  web :
+    build:
+      context: .
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    networks:
-      - notes-app-nw
-    env_file:
-      - ".env"
-
-  db:
-    image: mysql:8
-    container_name: db_cont
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test_db
-    ports:
-      - "3306:3306"
-    networks:
-      - notes-app-nw
-
-networks:
-  notes-app-nw:
+     - "8000:8000"
